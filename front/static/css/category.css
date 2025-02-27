@@ -1,0 +1,120 @@
+/* static/css/category.css */
+/* Category Header */
+.category-header {
+    padding: 20px 0;
+    text-align: center;
+    background-color: #252525;
+}
+
+h1 {
+    font-size: 28px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+/* Main container */
+.container {
+    width: 90%;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Product grid styling */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    justify-items: center;
+}
+
+/* Product card styling */
+.product-card {
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease;
+}
+
+.product-card:hover {
+    background-color: #383838;
+}
+
+.product-image {
+    width: 100%;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Product info */
+.product-info {
+    padding: 12px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #2d2d2d; /* Default background */
+}
+
+.product-info.gold-background {
+    background-color: #D4AF37; /* Gold background for Top products */
+    color: #1a1a1a; /* Dark text for contrast */
+}
+
+.product-info h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #ffffff; /* Default text color */
+    width: 20ch;
+    /*height: 1.2em;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.product-info.gold-background h3 {
+    color: #1a1a1a; /* Dark text for gold background */
+}
+
+.product-info .price {
+    font-size: 14px;
+    color: #a0a0a0; /* Default price color */
+    margin-bottom: 10px;
+}
+
+.product-info.gold-background .price {
+    color: #333333; /* Darker gray for gold background */
+}
+
+/* Link to product details */
+.view-details {
+    text-decoration: none;
+    color: #4da8ff;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.product-info.gold-background .view-details {
+    color: #1a1a1a; /* Dark link color for gold background */
+}
+
+.view-details:hover {
+    color: #ffffff;
+    background-color: #4da8ff;
+}
+
+.product-info.gold-background .view-details:hover {
+    color: #ffffff;
+    background-color: #b8962e; /* Slightly darker gold for hover */
+}

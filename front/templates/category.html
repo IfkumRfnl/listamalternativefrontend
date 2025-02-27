@@ -1,0 +1,27 @@
+<!-- templates/category.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ category_data.info.category_name }}{% endblock %}
+
+{% block content %}
+    <section class="category-header">
+        <h1>{{ category_data.info.category_name }}</h1>
+    </section>
+
+    <main class="container">
+        <div class="product-grid">
+            {% for product in category_data.products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="{{ product.image }}" alt="{{ product.title }}">
+                    </div>
+                    <div class="product-info {% if product.top %}gold-background{% endif %}">
+                        <h3>{{ product.name }}</h3>
+                        <p class="price">{{ product.price }}</p>
+                        <a href="/item/{{ product.id }}" class="view-details">View Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

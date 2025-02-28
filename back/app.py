@@ -9,7 +9,7 @@ app.template_folder = Config.template_folder
 app.static_folder = Config.static_folder
 
 
-base_url = 'https://list.am'
+base_url = 'https://list.am/'
 scraper_manager = ScraperManager(base_url)
 
 @app.route('/api/category/<identifier>', methods=['GET'])
@@ -38,6 +38,18 @@ def category_search():
     # Get category data from your scraper
     category_data = scraper_manager.scrape_search(query)
     return render_template('category.html', category_data=category_data)
+
+@app.route('/api/item/<identifier>', methods=['GET'])
+def item_api(identifier):
+    # Get item data from your scraper
+    item_data = scraper_manager.scrape_item(identifier)
+    return jsonify(item_data)
+
+@app.route('/item/<identifier>', methods=['GET'])
+def item(identifier):
+    # Get item data from your scraper
+    item_data = scraper_manager.scrape_item(identifier)
+    return render_template('item.html', item_data=item_data)
 
 
 if __name__ == '__main__':

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item_data.name }} - Marketplace{% endblock %}
+
+{% block content %}
+    <section class="item-header">
+        <h1>{{ item_data.name }}</h1>
+        <p class="price">{{ item_data.price }}</p>
+    </section>
+
+    <main class="container">
+        <section class="item-images">
+            <div class="main-image">
+                <img src="{{ item_data.images[0] }}" alt="{{ item_data.name }}">
+            </div>
+            <div class="thumbnails">
+                {% for image in item_data.images[1:] %}
+                    <img src="{{ image }}" alt="{{ item_data.name }} Thumbnail" class="thumbnail">
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="item-description">
+            <h2>Description</h2>
+            <p>{{ item_data.description }}</p>
+        </section>
+
+        <section class="item-attributes">
+            <h2>Attributes</h2>
+            <div class="attribute-block">
+                <h3>{{ item_data.attribute_blocks.attr_block_name }}</h3>
+                <dl>
+                    {% for attr in item_data.attribute_blocks.attributes %}
+                        <dt>{{ attr.name }}</dt>
+                        <dd>{{ attr.value }}</dd>
+                    {% endfor %}
+                </dl>
+            </div>
+        </section>
+
+        <section class="item-price-history">
+            <h2>Price History</h2>
+            <table class="price-history-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Price</th>
+                        <th>Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for history in item_data.price_history %}
+                        <tr>
+                            <td>{{ history.date }}</td>
+                            <td>{{ history.price }}</td>
+                            <td>{{ history.price_change }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+{% endblock %}

@@ -3,6 +3,40 @@
 {% block title %}{{ item_data.name }} - Marketplace{% endblock %}
 
 {% block content %}
+    <!-- Inline styles for dynamic image selection -->
+    <style>
+        /* Hide radio buttons */
+        input[type="radio"] {
+            display: none;
+        }
+        /* Hide all main images by default */
+        .image-option {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 4px;
+        }
+        /* Show the selected image based on checked radio button */
+        {% for i in range(1, item_data.images|length + 1) %}
+            #img{{ i }}:checked ~ .main-image .image-option:nth-child({{ i }}) {
+                display: block;
+            }
+        {% endfor %}
+        /* Thumbnail styles */
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        .thumbnail:hover {
+            opacity: 0.8;
+        }
+    </style>
+
     <section class="item-header">
         <h1>{{ item_data.name }}</h1>
         <p class="price">{{ item_data.price }}</p>
@@ -10,12 +44,24 @@
 
     <main class="container">
         <section class="item-images">
+            <!-- Radio buttons for image selection -->
+            {% for image in item_data.images %}
+                <input type="radio" name="image-selector" id="img{{ loop.index }}" {% if loop.first %}checked{% endif %}>
+            {% endfor %}
+
+            <!-- Main image container with all images -->
             <div class="main-image">
-                <img src="{{ item_data.images[0] }}" alt="{{ item_data.name }}">
+                {% for image in item_data.images %}
+                    <img src="{{ image }}" class="image-option" alt="{{ item_data.name }}">
+                {% endfor %}
             </div>
+
+            <!-- Thumbnails with labels -->
             <div class="thumbnails">
-                {% for image in item_data.images[1:] %}
-                    <img src="{{ image }}" alt="{{ item_data.name }} Thumbnail" class="thumbnail">
+                {% for image in item_data.images %}
+                    <label for="img{{ loop.index }}">
+                        <img src="{{ image }}" class="thumbnail" alt="{{ item_data.name }} Thumbnail">
+                    </label>
                 {% endfor %}
             </div>
         </section>
@@ -27,15 +73,17 @@
 
         <section class="item-attributes">
             <h2>Attributes</h2>
+            {% for attr_block in item_data.attribute_blocks%}
             <div class="attribute-block">
-                <h3>{{ item_data.attribute_blocks.attr_block_name }}</h3>
+                <h3>{{ attr_block.attr_block_name }}</h3>
                 <dl>
-                    {% for attr in item_data.attribute_blocks.attributes %}
+                    {% for attr in attr_block.attributes %}
                         <dt>{{ attr.name }}</dt>
                         <dd>{{ attr.value }}</dd>
                     {% endfor %}
                 </dl>
             </div>
+            {% endfor %}
         </section>
 
         <section class="item-price-history">

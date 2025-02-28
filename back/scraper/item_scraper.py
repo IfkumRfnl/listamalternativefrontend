@@ -24,6 +24,7 @@ class ItemScraper(BaseScraper):
         final_data["images"] = images
 
         # get attributes
+        final_data["attribute_blocks"] = []
         for attr_block_div in soup.find_all("div", class_='attr'):
             # get name of attribute block (which is previous div)
             attr_block_name = attr_block_div.find_previous("div").text
@@ -36,10 +37,10 @@ class ItemScraper(BaseScraper):
                     "name": attr_name,
                     "value": attr_value
                 })
-            final_data["attribute_blocks"] = {
+            final_data["attribute_blocks"].append({
                 "attr_block_name": attr_block_name,
                 "attributes": attributes
-            }
+            })
 
         # price history
         final_data['price_history'] = []

@@ -11,7 +11,7 @@ TEMPLATE_DIR = FRONT_DIR / 'templates'
 STATIC_DIR = FRONT_DIR / 'static'
 
 class Config:
-    DEBUG = True
+    DEBUG = False
     # Configuration for Flask to locate templates and static files
     template_folder = str(TEMPLATE_DIR)
     static_folder = str(STATIC_DIR)

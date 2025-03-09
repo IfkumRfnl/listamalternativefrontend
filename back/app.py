@@ -1,7 +1,10 @@
-from flask import Flask, jsonify, render_template, request
+import mimetypes
+
+from flask import Flask, jsonify, render_template, request, send_from_directory
 
 from scraper_manager import ScraperManager  # Import your scraper managero
 from config import Config
+import os
 
 
 app = Flask(__name__)
@@ -10,7 +13,36 @@ app.static_folder = Config.static_folder
 
 
 base_url = 'https://list.am/'
+CACHE_DIR = 'f'
 scraper_manager = ScraperManager(base_url)
+
+@app.route('/')
+def index():
+    return render_template('home.html')
+
+@app.route(f'/{CACHE_DIR}/<product_key>/<filename>', methods=['GET'])
+def get_image(product_key, filename):
+    directory = os.path.join(app.root_path, CACHE_DIR, product_key)
+    filepath = os.path.join(directory, filename)
+
+    # Determine MIME type based on extension
+    ext = os.path.splitext(filename)[1].lower()
+    mime_types = {
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.png': 'image/png',
+        '.gif': 'image/gif',
+        '.webp': 'image/webp'
+    }
+    mime_type = mime_types.get(ext, 'application/octet-stream')  # Default to binary if unknown
+
+    # Serve the file with explicit MIME type
+    response = send_from_directory(directory, filename)
+    response.headers['Content-Type'] = mime_type
+    response.headers['Content-Disposition'] = 'inline'
+    return response
+
+
 
 @app.route('/api/category/<identifier>', methods=['GET'])
 def category_api(identifier):

@@ -11,6 +11,8 @@ class ListScraper(BaseScraper):
     def scrape(self, identifier):
         final_data = {}
 
+        category_number = identifier.split("/")[0]
+
 
         url = f"{self.base_url}/{self.url}".format(id=identifier)
         response = self.get_data(url)
@@ -38,7 +40,17 @@ class ListScraper(BaseScraper):
         final_data["products"] = products
 
         # nav bar
-        nav_bar = soup.find("div", )
+        final_data["nav_bar"] = []
+        nav_bar = soup.find("div", class_="dlf").find("span", class_="pp").find_all() if soup.find("div", class_="dlf") else []
+        for i, nav in enumerate(nav_bar):
+            final_data["nav_bar"].append({
+                "url": f"/category/{category_number}/{i+1}",
+                "page": nav.text.strip() if nav else None,
+                "active": nav.name == "span"
+            })
+
+
+
 
         print(products)
         return final_data

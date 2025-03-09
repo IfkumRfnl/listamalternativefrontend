@@ -3,13 +3,24 @@ from time import sleep
 from back.base_scraper import BaseScraper
 from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
+from back.cache_manager import CacheManager
 from bs4 import BeautifulSoup
 
 class ItemScraper(BaseScraper):
-    def __init__(self, base_url):
+    def __init__(self, base_url, cache_manager=None):
         super().__init__(base_url)
+        self.cache_manager = CacheManager() if cache_manager is None else cache_manager
 
     def scrape(self, identifier):
+        cached_data = self.cache_manager.get(identifier)
+        if cached_data:
+            return cached_data
+        data = self.scrape_from_web(identifier)
+        if data:
+            self.cache_manager.set(identifier, data)
+        return data
+
+    def scrape_from_web(self, identifier):
         response = self.get_data(identifier)
         soup = BeautifulSoup(response, 'html.parser')
         final_data = {}

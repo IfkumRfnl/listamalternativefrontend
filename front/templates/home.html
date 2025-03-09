@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Marketplace{% endblock %}
+
+{% block content %}
+    <!-- Main content container -->
+    <main class="main-content">
+        <div class="welcome-section">
+            <h1>Welcome to Our Marketplace</h1>
+            <p>Discover amazing deals and connect with sellers in your community. Browse our featured categories below to start exploring!</p>
+        </div>
+
+        <!-- Featured Categories Section -->
+        <section class="featured-categories">
+            <h2>Featured Categories</h2>
+            <div class="categories-list">
+                <a href="/category/23" class="category-item">Cars</a>
+                <a href="/category/24" class="category-item">Motorcycles</a>
+                <a href="/category/4" class="category-item">Electronics</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

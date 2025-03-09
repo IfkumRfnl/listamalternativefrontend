@@ -118,3 +118,42 @@ h1 {
     color: #ffffff;
     background-color: #b8962e; /* Slightly darker gold for hover */
 }
+
+
+
+/* Navigation styling */
+.nav {
+    margin-top: 20px; /* Space above the navigation */
+    padding: 10px 0; /* Vertical padding for breathing room */
+    background-color: #252525; /* Matches category-header background */
+    border-radius: 4px; /* Consistent with product-card */
+    display: flex; /* Horizontal layout */
+    justify-content: center; /* Center the links */
+    gap: 20px; /* Space between nav items */
+    flex-wrap: wrap; /* Responsive: wrap on smaller screens */
+}
+
+.nav a {
+    text-decoration: none; /* Remove underline */
+    color: #4da8ff; /* Matches view-details link color */
+    font-size: 14px; /* Matches view-details font size */
+    font-weight: 500; /* Matches view-details weight */
+    padding: 5px 10px; /* Matches view-details padding */
+    border-radius: 4px; /* Consistent with other elements */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Matches hover transitions */
+}
+
+.nav a:hover {
+    color: #ffffff; /* White text on hover, consistent with other links */
+    background-color: #4da8ff; /* Blue background on hover, matching view-details */
+}
+
+.nav a.active {
+    background-color: #4da8ff;
+    color: #ffffff;
+    font-weight: bold; /* Highlight active link */
+}
+
+.nav {
+    border: 1px solid #383838;
+}

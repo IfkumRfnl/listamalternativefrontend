@@ -31,7 +31,7 @@ class ListScraper(BaseScraper):
             product = self._process_product(top_product, top=True)
             products.append(product)
 
-        regular_products = soup.find_all("div", class_="dl")[1].find_all('a', class_="fav-item-info-container") if len(soup.find("div", class_="dl")) > 1 else []
+        regular_products = soup.find_all("div", class_="dl")[1 if len(top_products) != 0 else 0].find_all('a', class_="fav-item-info-container") if category_name else []
 
         for regular_product in regular_products:
 

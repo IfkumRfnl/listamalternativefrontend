@@ -56,12 +56,10 @@ class CacheManager:
             if url.startswith("//"):
                 url = "https:" + url
             # https://s.list.am/f/291/83964291.webp
-            local_dir = os.path.join('back', self.cache_dir, product_key)
-            print(f"Downloading image from {url} to {local_dir}")
+            local_dir = os.path.join(self.cache_dir, product_key)
             os.makedirs(local_dir, exist_ok=True)
             local_path = os.path.join(local_dir, os.path.basename(url))
             if os.path.exists(local_path):
-                print(f"Image already exists at {local_path}")
                 return local_path
             response = requests.get(url, headers = {"User-Agent": "Mozilla/5.0"}, timeout=10, stream=True)
             response.raise_for_status()
@@ -69,10 +67,8 @@ class CacheManager:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
             remote_path = f"/{self.cache_dir}/{product_key}/{os.path.basename(url)}"
-            print(f"Image downloaded and saved to {local_path}")
             return remote_path
         except Exception as e:
-            print(f"Error downloading image {url}: {str(e)}")
             return ""
 
     def set(self, key: str, data: Dict[str, Any]) -> bool:
@@ -112,7 +108,6 @@ class CacheManager:
             return True
 
         except Exception as e:
-            print(f"Error setting cache for {key}: {str(e)}")
             return False
 
     def get(self, key: str) -> Optional[Dict[str, Any]]:
@@ -154,7 +149,6 @@ class CacheManager:
                 return None
 
         except Exception as e:
-            print(f"Error getting cache for {key}: {str(e)}")
             return None
 
 

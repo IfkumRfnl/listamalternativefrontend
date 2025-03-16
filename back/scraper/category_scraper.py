@@ -1,4 +1,4 @@
-from back.scraper.list_scraper import ListScraper
+from scraper.list_scraper import ListScraper
 
 
 class CategoryScraper(ListScraper):

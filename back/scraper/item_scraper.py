@@ -1,9 +1,9 @@
 from time import sleep
 
-from back.base_scraper import BaseScraper
+from base_scraper import BaseScraper
 from playwright.sync_api import sync_playwright
 from playwright_stealth import stealth_sync
-from back.cache_manager import CacheManager
+from cache_manager import CacheManager
 from bs4 import BeautifulSoup
 
 class ItemScraper(BaseScraper):

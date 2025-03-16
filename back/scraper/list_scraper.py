@@ -1,4 +1,4 @@
-from back.base_scraper import BaseScraper
+from base_scraper import BaseScraper
 from bs4 import BeautifulSoup
 from curl_cffi import requests
 import requests_html
@@ -52,7 +52,6 @@ class ListScraper(BaseScraper):
 
 
 
-        print(products)
         return final_data
 
     def _process_product(self, product, top=False):

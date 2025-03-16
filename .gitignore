@@ -1,2 +1,6 @@
 cache_db
-back/f
+back/f/
+.venv/
+back/scraper/__pycache__/
+back/__pycache__/
+

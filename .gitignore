@@ -3,4 +3,6 @@ back/f/
 .venv/
 back/scraper/__pycache__/
 back/__pycache__/
-
+scraper/__pycache__/
+f/
+.idea/

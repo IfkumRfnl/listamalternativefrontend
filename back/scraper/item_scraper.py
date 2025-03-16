@@ -17,6 +17,8 @@ class ItemScraper(BaseScraper):
             return cached_data
         data = self.scrape_from_web(identifier)
         if data:
+            if data["name"] == "Տվյալ հայտարարությունը գոյություն չունի":
+                return data
             self.cache_manager.set(identifier, data)
         return data
 
@@ -30,13 +32,13 @@ class ItemScraper(BaseScraper):
         final_data["name"] = soup.find("h1").text if soup.find("h1") else None
         final_data["price"] = soup.find("span", class_='price').text if soup.find("span", class_='price') else None
         images = []
-        for image_div in soup.find("div", class_='po55').find("div", class_='p').find_all("div"):
+        for image_div in soup.find("div", class_='po55').find("div", class_='p').find_all("div") if soup.find("div", class_='po55') else []:
             images.append(image_div.find("img")["src"])
         final_data["images"] = images
 
         # get attributes
         final_data["attribute_blocks"] = []
-        for attr_block_div in soup.find_all("div", class_='attr'):
+        for attr_block_div in soup.find_all("div", class_='attr') if soup.find_all("div", class_='attr') else []:
             # get name of attribute block (which is previous div)
             attr_block_name = attr_block_div.find_previous("div").text
             # get attributes

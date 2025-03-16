@@ -11,12 +11,12 @@ class ListScraper(BaseScraper):
     def scrape(self, identifier):
         final_data = {}
 
-        category_number = identifier.split("/")[0]
+        category_number = identifier.split("/")[0] if "/" in identifier else None
 
 
         url = f"{self.base_url}/{self.url}".format(id=identifier)
         response = self.get_data(url)
-        soup = BeautifulSoup(response.content, "html.parser")
+        soup = BeautifulSoup(response.content, "html.parser") if response else None
 
         category_name = soup.find("h1").text if soup.find("h1") else None
 
@@ -31,7 +31,7 @@ class ListScraper(BaseScraper):
             product = self._process_product(top_product, top=True)
             products.append(product)
 
-        regular_products = soup.find_all("div", class_="dl")[1].find_all('a', class_="fav-item-info-container") if soup.find("div", class_="dl") else []
+        regular_products = soup.find_all("div", class_="dl")[1].find_all('a', class_="fav-item-info-container") if len(soup.find("div", class_="dl")) > 1 else []
 
         for regular_product in regular_products:
 

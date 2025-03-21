@@ -25,7 +25,7 @@
         </div>
         <div class="nav">
             {% for nav in category_data.nav_bar %}
-                <a href="{{ nav.url }}" class="{% if nav.active %}active{% endif %}">{{ nav.page }}</a>
+                <a href="{{ nav.url + nav.page }}" class="{% if nav.active %}active{% endif %}">{{ nav.page }}</a>
             {% endfor %}
         </div>
     </main>

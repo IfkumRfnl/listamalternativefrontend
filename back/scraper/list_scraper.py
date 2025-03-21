@@ -44,10 +44,12 @@ class ListScraper(BaseScraper):
         nav_bar = soup.find("div", class_="dlf").find("span", class_="pp").find_all() if soup.find("div", class_="dlf") else []
         for i, nav in enumerate(nav_bar):
             final_data["nav_bar"].append({
-                "url": f"/category/{category_number}/{i+1}",
+                "url": f"/category/{category_number}/",
                 "page": nav.text.strip() if nav else None,
                 "active": nav.name == "span"
             })
+
+        print(final_data["nav_bar"])
 
 
 
